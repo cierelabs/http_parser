@@ -1,0 +1,32 @@
+import os ;
+import testing ;
+
+
+
+project /ciere/http_parser/test
+        : requirements $(TARGET_REQUIREMENTS)
+          <define>BOOST_ALL_NO_LIB=1
+	  <include>../src
+	  <include>../src/detail
+	  <source>/boost//headers
+        : default-build <threading>multi
+        : build-dir bin
+        ;
+
+
+{
+	test-suite http_handler :
+
+	[ run http_request_message_test.cpp : : : : ]
+	[ run http_response_message_test.cpp : : : : ]
+	[ run http_request_grammar_test.cpp : : : : ]
+	[ run http_response_grammar_test.cpp : : : : ]
+	[ run http_uri_parts_test.cpp : : : : ]
+	[ run http_uri_grammar_test.cpp : : : : ]
+	[ run http_util_test.cpp ../src/detail/http_util.cpp : : : : ]
+
+	;
+}
+
+
+
